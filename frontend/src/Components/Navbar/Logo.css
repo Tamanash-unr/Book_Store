@@ -1,0 +1,21 @@
+.logo{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: #7b2e00;
+}
+
+.logo h1{
+    margin-bottom: 0px;
+    font-family: 'Satisfy', cursive;
+    font-size: 40px;
+}
+
+.logo img{
+    width: 250px;
+    margin-bottom: 10px;
+}

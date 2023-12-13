@@ -1,0 +1,18 @@
+.booksMain-container{
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.filter-container{
+    width: 30%;
+}
+
+.books-container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.books-container .book-card{
+    margin: 10px;
+}

@@ -1,0 +1,37 @@
+.navLinks{
+    text-decoration: none;
+    color: #7b2e00;
+    border: 2px solid #7b2d0000;
+    font-weight: 400;
+    padding: 10px;
+}
+
+.navLinks:hover{
+    border: 2px solid #7b2e00;
+    border-radius: 10px;
+}
+
+.fas{
+    margin-right: 10px;
+}
+
+/* Extra Class for Button Like Style */
+.navButtons{
+    padding: 10px;
+    border: 2px solid #7b2e00;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #7b2e00;
+    font-weight: bold;
+}
+
+.navButtons:hover{
+    color: white;
+    animation: colorFill 0.5s ease forwards;
+}
+
+@keyframes colorFill {
+    to {
+        background-color: #7b2e00;
+    }
+}

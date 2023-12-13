@@ -1,0 +1,43 @@
+.homeContainer{
+    margin: 20px;
+    display: flex;
+}
+
+.home-content{
+    padding: 2rem;
+    color: #7b2e00;
+}
+
+.home-content>h1{
+    font-size: 5rem;
+    font-weight: 600;
+    line-height: 100%;
+}
+
+.home-content>p{
+    font-size: 1.2rem;
+    max-width: 80%;
+}
+
+.images-wrap.horizontal{
+    height: 450px;
+    align-items: center;
+}
+
+.book-card{
+    margin: auto;
+}
+
+.home-slide{
+    width: 50% !important;
+    padding: 10px;
+}
+
+.active{
+    transition: all 1s;
+}
+
+.slide-center{
+    transition: all 1s;
+    transform: scale(1, 1);
+}

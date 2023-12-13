@@ -1,0 +1,36 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.filter-container{
+  padding: 20px;
+}
+
+.filter-header{
+  justify-content: space-between;
+}
+
+.filter-header .btn{
+  width: 30%;
+}
+
+.filter-section{
+  margin-bottom: 15px;
+}
+
+.filter-section input{
+  margin: 5px;
+}
+
+.filter-footer{
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,15 @@
+.not-found{
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.not-found h1{
+    font-size: 120px;
+    margin-bottom: 5px;
+}
+
+.not-found h3{
+    font-size: 30px;
+    margin-top: 5px;
+}

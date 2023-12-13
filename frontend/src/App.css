@@ -1,0 +1,19 @@
+body{
+    margin: 0px;
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #ffe3a6;
+    color: #7b2e00;
+}
+
+.main-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.flex-center{
+    display: flex;
+    align-items: center;
+}
