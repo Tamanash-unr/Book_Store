@@ -3,6 +3,13 @@ import Book from '../models/books.js';
 
 const router = express.Router();
 
+// Test API Router
+router.get('/test', (req, res) => {
+    return res.status(200).send({
+        message: "Welcome to the test endpoint!"
+    })
+});
+
 // creating the entry of book in db
 router.post('/create', async (req, res) => {
     try {

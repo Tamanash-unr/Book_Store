@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import FilterPanel from "./Filter-Panel/FilterPanel";
-import BookCard from "./SimpleBookCard";
+import BookCard from "./Cards/SimpleBookCard";
 import "./Books.css";
 
 function Books(){

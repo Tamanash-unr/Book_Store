@@ -1,0 +1,21 @@
+.btn-cart {
+    position: relative;
+    justify-content: center;
+    text-decoration: none;
+    color: #7b2e00;
+    width: 50px;
+    height: 50px;
+    margin: 0px 10px;
+}
+
+.cart-items {
+    position: absolute;
+    color: white;
+    text-align: center;
+    background-color: orangered;
+    border-radius: 50%;
+    height: 25px;
+    width: 25px;
+    right: 0;
+    top: 0;
+}

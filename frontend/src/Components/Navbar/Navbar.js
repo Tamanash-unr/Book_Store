@@ -1,8 +1,11 @@
 import Logo from "./Logo";
-import ButtonLink from "../ButtonLink/ButtonLink";
+import ButtonLink from "../Buttons/ButtonLink";
+import CartButton from "../Buttons/CartButton";
 import './Navbar.css';
 
-function Navbar(){
+function Navbar(props){
+    let isLoggedIn = true;
+
     return (
         <div className="navbar flex-center">
             <Logo />
@@ -23,7 +26,13 @@ function Navbar(){
                 </ul>
             </nav>
             <div className="navUtils flex-center">
-                <ButtonLink btnLink="/users/signIn" btnText="Sign In" btnClassName="navLinks" fa_Icon="fas fa-user" />
+                {!isLoggedIn && <ButtonLink btnLink="/users/signIn" btnText="Sign In" btnClassName="navLinks" fa_Icon="fas fa-user" />}
+                {isLoggedIn && 
+                    <div className="flex-center">
+                        <CartButton btnLink="/users/myCart" btnClassName="flex-center" fa_Icon="fas fa-cart-shopping fa-xl" currentCartItems={props.currentCartItems}/>
+                        <ButtonLink btnLink="/users/signOut" btnText="Sign Out" btnClassName="navLinks" fa_Icon="fas fa-right-from-bracket fa-lg" />
+                    </div>
+                }
             </div>
         </div>
     );

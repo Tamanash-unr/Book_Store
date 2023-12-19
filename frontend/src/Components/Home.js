@@ -1,5 +1,5 @@
 import "./Home.css";
-import BookCard from "./SimpleBookCard";
+import BookCard from "./Cards/SimpleBookCard";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 

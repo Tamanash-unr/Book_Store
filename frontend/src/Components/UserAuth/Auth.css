@@ -3,7 +3,8 @@
     height: fit-content;
     border: 2px solid #7b2e00;
     border-radius: 15px;
-    margin: auto;
+    margin: 50px auto;
+    box-shadow: 8px 12px 10px #767676;
 }
 
 .auth-form{
