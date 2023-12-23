@@ -1,0 +1,62 @@
+.profile-container{
+    display: flex;
+    margin: 40px 20%;
+}
+
+.profile-container>div{
+    padding: 15px;
+    border: 1px solid #7b2e00;
+    border-radius: 10px;
+    box-shadow: 5px 10px 15px #7b2e00;
+}
+
+.profile-menu{
+    width: 30%;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    height: fit-content;
+}
+
+.profile-username{
+    font-size: 1.4rem;
+}
+
+.profile-list>ul{
+    padding: 0px;
+    width: 100%;
+}
+
+.profile-listitem>button{
+    width: 100%;
+    border: none;
+    color: inherit;
+    font-size: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.profile-list>a{
+    display: block;
+    padding: 15px;
+    text-decoration: none;
+    color: inherit;
+    margin-top: 150px;
+}
+
+.profile-listitem>button:hover, .profile-list>a:hover{
+    box-shadow: #ffe3a6 0px 30px 60px -12px inset, #7b2e00 0px 18px 36px -18px inset;
+}
+
+.profile-main{
+    width: 70%;
+    margin-left: 10px;
+}
+
+.profile-main input{
+    margin-right: 15px;
+}
+
+.profile-main .btn{
+    margin-top: 15px;
+    width: fit-content;
+}

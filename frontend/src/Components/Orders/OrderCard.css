@@ -1,0 +1,22 @@
+.order-card{
+    display: flex;
+    justify-content: space-between;
+    transition: all 0.5s;
+    padding: 5px 15px;
+}
+
+.order-card:hover{
+    transform: translateY(-4px);
+    box-shadow: 5px 10px 15px #7b2e00;
+}
+
+.order-cancelBtn{
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: inherit;
+}
+
+.order-cancelBtn:hover{
+    color: orangered;
+}

@@ -7,5 +7,9 @@ import NotFound from "./ErrorPage/404";
 import Books from "./Books";
 import About from "./About";
 import Cart from "./Cart";
+import Dashboard from "./UserDashboard";
+import UserProfile from "./UserProfile";
+import Orders from "./Orders/MyOrders";
+import AddNew from "./AddNew";
 
-export {Navbar, Home, SignIn, SignUp, Footer, NotFound, Books, About, Cart};
+export {Navbar, Home, Dashboard, SignIn, SignUp, Footer, NotFound, Books, About, Cart, UserProfile, Orders, AddNew};

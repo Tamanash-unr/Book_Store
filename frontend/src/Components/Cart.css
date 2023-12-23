@@ -13,18 +13,6 @@
     box-shadow: 8px 12px 10px #767676;
 }
 
-.cart-header {
-    background-color: #7b2e00;
-    color: white;
-    padding: 15px;
-    border-radius: 12px 12px 0px 0px;
-}
-
-.cart-header h2{
-    margin-top: 8px;
-    margin-bottom: 8px;
-}
-
 .cartDetail-container{
     display: flex;
     flex-direction: column;

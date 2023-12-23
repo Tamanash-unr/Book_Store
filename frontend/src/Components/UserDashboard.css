@@ -1,0 +1,20 @@
+.dashboard-container{
+    margin: 10px 50px;
+}
+
+.dashboard-card{
+    border: 1px solid #7b2e00;
+    border-radius: 15px;
+    margin-bottom: 40px;
+}
+
+.slide-arrow{
+    border: none;
+    font-size: 3rem;
+    color: #7b2e00;
+    position: static !important;
+}
+
+.slide-arrow:hover{
+    color: black;
+}

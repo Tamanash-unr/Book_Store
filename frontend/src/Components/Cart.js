@@ -10,7 +10,7 @@ function Cart(){
     return (
         <div className="cart-container">
             <div className="cartItems-container">
-                <div className="cart-header">
+                <div className="card-header">
                     <h2>My Cart</h2>
                 </div>
                 <CartItemCard />
@@ -19,7 +19,7 @@ function Cart(){
             </div>
             <div className="cartDetail-container">
                 <div className="cardDetail-Main">
-                    <div className="cart-header">
+                    <div className="card-header">
                         <h2>Price Details</h2>
                     </div>
                     <div className="cartDetail-text">

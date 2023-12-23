@@ -44,7 +44,7 @@ function SignIn(){
 
                 {/* Sign Up Link */}
                 <p>
-                    Don't have an account? <a href="/users/signUp">Sign Up</a>
+                    Don't have an account? <a href="/user/signUp">Sign Up</a>
                 </p>
             </div>
         </div>

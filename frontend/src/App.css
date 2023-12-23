@@ -22,3 +22,15 @@ hr{
     width: 90%;
     border: 1px solid #7b2e00;;
 }
+
+.card-header {
+    background-color: #7b2e00;
+    color: white;
+    padding: 15px;
+    border-radius: 12px 12px 0px 0px;
+}
+
+.card-header h2{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}

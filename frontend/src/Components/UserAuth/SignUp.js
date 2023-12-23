@@ -47,7 +47,7 @@ function SignUp(){
 
                  {/* Sign In Link  */}
                 <p>
-                    Already have an account? <a href="/users/signIn">Sign In</a>
+                    Already have an account? <a href="/user/signIn">Sign In</a>
                 </p>
             </div>
         </div>

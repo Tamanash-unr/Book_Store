@@ -4,11 +4,13 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import {Navbar, Home, SignIn, SignUp, Footer, NotFound, Books, About, Cart} from "./Components";
+import {Navbar, Home, Dashboard, SignIn, SignUp, Footer, NotFound, Books, About, Cart, UserProfile, Orders, AddNew} from "./Components";
 import "./App.css";
 
 function App(){
-    const [cartItems, setCartItems] = useState([]);
+    // React State Hooks
+    const [cartItems, setCartItems] = useState([]); /* State hook for Cart */
+    let isLoggedIn = false;
 
     useEffect(()=>{
         console.log("component did mount");
@@ -23,10 +25,13 @@ function App(){
             <Router>
                 <Navbar currentCartItems={cartItems.length}/>
                 <Routes>
-                    <Route exact path="/" element={<Home/>}/>
-                    <Route exact path="/users/signIn" element={<SignIn/>}/>
-                    <Route exact path="/users/signUp" element={<SignUp/>}/>
-                    <Route exact path="/users/myCart" element={<Cart/>}/>
+                    {isLoggedIn ? <Route exact path="/" element={<Dashboard/>}/> : <Route exact path="/" element={<Home/>}/>}
+                    <Route exact path="/user/signIn" element={<SignIn/>}/>
+                    <Route exact path="/user/signUp" element={<SignUp/>}/>
+                    <Route exact path="/user/myCart" element={<Cart/>}/>
+                    <Route exact path="/user/profile" element={<UserProfile/>}/>
+                    <Route exact path="/user/myOrders" element={<Orders/>}/>
+                    <Route exact path="/user/addNew" element={<AddNew/>}/>
                     <Route exact path="/books" element={<Books/>}/>
                     <Route exact path="/about" element={<About/>}/>
                     <Route path="*" element={<NotFound/>}/>

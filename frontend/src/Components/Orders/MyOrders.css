@@ -1,0 +1,12 @@
+.orders-container{
+    width: 50vw;
+    margin: 25px auto;
+    border: 2px solid #7b2e00;
+    box-shadow: 5px 10px 15px #7b2e00;
+    border-radius: 10px;
+}
+
+.null-card{
+    text-align: center;
+    font-size: 1.8rem;
+}
