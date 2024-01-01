@@ -34,3 +34,7 @@ hr{
     margin-top: 8px;
     margin-bottom: 8px;
 }
+
+.toast-ProgressBar{
+    --toastify-color-progress-light: #7b2e00;
+}

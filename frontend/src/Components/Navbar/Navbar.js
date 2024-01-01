@@ -2,10 +2,11 @@ import Logo from "./Logo";
 import ButtonLink from "../Buttons/ButtonLink";
 import CartButton from "../Buttons/CartButton";
 import NavOptions from "./NavOptions";
+import { AuthData } from "../../AuthContext/AuthWrapper";
 import './Navbar.css';
 
-function Navbar(props){
-    let isLoggedIn = false;
+function Navbar(){
+    const { user } = AuthData();
 
     return (
         <div className="navbar flex-center">
@@ -27,12 +28,12 @@ function Navbar(props){
                 </ul>
             </nav>
             <div className="navUtils flex-center">
-                {!isLoggedIn && <ButtonLink btnLink="/user/signIn" btnText="Sign In" btnClassName="navLinks" fa_Icon="fas fa-user" />}
-                {isLoggedIn && 
+                {!user.isLoggedIn && <ButtonLink btnLink="/user/signIn" btnText="Sign In" btnClassName="navLinks" fa_Icon="fas fa-user" />}
+                {user.isLoggedIn && 
                     <div className="flex-center">
-                        <CartButton btnLink="/user/myCart" btnClassName="flex-center" fa_Icon="fas fa-cart-shopping fa-xl" currentCartItems={props.currentCartItems}/>
+                        <CartButton btnLink="/user/myCart" btnClassName="flex-center" fa_Icon="fas fa-cart-shopping fa-xl" />
                         {/* <ButtonLink btnLink="/user/signOut" btnText="Sign Out" btnClassName="navLinks" fa_Icon="fas fa-right-from-bracket fa-lg" /> */}
-                        <NavOptions/>
+                        <NavOptions />
                     </div>
                 }
             </div>

@@ -17,13 +17,32 @@ const bookSchema = mongoose.Schema(
             type: Number,
             required: true
         },
+        description: {
+            type: String,
+            default: "No Description Available"
+        },
         price: {
             type: Number,
             required: true
+        },
+        genre: {
+            type: Array,
+            of: String,
+            default: "Other"
+        },
+        language: {
+            type: Array,
+            of: String,
+            default: "Other"
+        },
+        addedBy:{
+            type:  mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
         },
     },{
         timestamps: true
     }
 )
 
-export default mongoose.model("Book",bookSchema);;
+export default mongoose.model("Book",bookSchema);

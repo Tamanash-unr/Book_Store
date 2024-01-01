@@ -12,7 +12,7 @@ function bookCard(props){
                 </div>
             }
             <div className="book-image">
-                <img src="https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/BookStore%2FThumb_Book.PNG?alt=media" alt="Book..."/>
+                <img src="https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/Public%2FThumb_Book.PNG?alt=media" alt="Book..."/>
             </div>
             <div className="book-content">
                 <h3>Book Name</h3>

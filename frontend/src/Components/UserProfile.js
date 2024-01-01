@@ -1,12 +1,15 @@
 import "./UserProfile.css";
 import { Link } from "react-router-dom";
+import { AuthData } from "../AuthContext/AuthWrapper";
 
 function UserProfile(){
+    const { user, handleSignOut } = AuthData();
+
     return (
         <div className="profile-container">
             <div className="profile-menu">
                 <text>Hello,</text><br/>
-                <strong className="profile-username">Username</strong>
+                <strong className="profile-username">{user.name}</strong>
                 <hr/>
                 <div className="profile-list">
                     <ul type="none">
@@ -23,7 +26,7 @@ function UserProfile(){
                             </button>
                         </li>
                     </ul>
-                    <Link to={"/user/signOut"}>
+                    <Link to="/" onClick={handleSignOut}>
                         <i className="fas fa-right-from-bracket"/>
                         Sign Out
                     </Link>

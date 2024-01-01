@@ -1,7 +1,9 @@
 import "./NavOptions.css";
 import { Link } from "react-router-dom";
+import { AuthData } from "../../AuthContext/AuthWrapper";
 
 function NavOptions(){
+    const { handleSignOut } = AuthData();
     let optionsToggled = false;
 
     function onDropdownClick(){
@@ -41,7 +43,7 @@ function NavOptions(){
                     </Link>
                 </li>
                 <li>
-                    <Link className="opt-listItem" to={"/user/signOut"}>
+                    <Link className="opt-listItem" to="/" onClick={handleSignOut}>
                         <i className="fas fa-right-from-bracket"/>
                         Sign Out
                     </Link>

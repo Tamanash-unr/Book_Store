@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import "./CartButton.css"
+import { AuthData } from "../../AuthContext/AuthWrapper";
+import "./CartButton.css";
 
 function CartButton(props){
-    const { btnLink, btnClassName, fa_Icon, currentCartItems } = props;
+    const { btnLink, btnClassName, fa_Icon } = props;
+    const { cartItems } = AuthData();
 
     async function handleClick(evt){
         evt.preventDefault();
@@ -19,7 +21,7 @@ function CartButton(props){
     return (
         <Link to={btnLink} className={"btn-cart " + btnClassName}>
             {fa_Icon !== undefined && <i className={fa_Icon} />}
-            {currentCartItems > 0 && <span className="cart-items">{currentCartItems}</span>}
+            {cartItems.length > 0 && <span className="cart-items">{cartItems.length}</span>}
         </Link>
     );
 }

@@ -1,10 +1,14 @@
+// Set up Global configuration access
+import dotenv from 'dotenv'; 
+dotenv.config({path: "./config.env"});
+
 import express from 'express';
 import cors from 'cors';
 import db from './config/mongoose.js';
 import bookRouter from './routes/index.js';
 
 const app = express();
-const port = 8080;
+// const port = 8080;
 
 app.use(express.json());
 
@@ -21,12 +25,13 @@ app.use(cors());
 // )
 
 
-app.use('/books-api', bookRouter);
+app.use('/booksApi', bookRouter);
 
-app.listen(port, function(err){
+app.listen(process.env.APP_PORT, function(err){
     if(err){
         console.log('Something bad happened', err);
     }
 
-    console.log("Server is up and running on port 8080")
+    console.log("Server is up and running on port", process.env.APP_PORT)
+    // console.log(process.env)
 })

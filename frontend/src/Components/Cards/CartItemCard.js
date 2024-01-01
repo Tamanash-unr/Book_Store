@@ -30,7 +30,7 @@ function CartItemCard(){
                 <button className="btn btn-primary flex-center cartItem-remove">Remove from Cart</button>
             </div>
             <div>
-                <img className="cartItem-cardImg" src="https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/BookStore%2FThumb_Book.PNG?alt=media" alt="Book..."/>
+                <img className="cartItem-cardImg" src="https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/Public%2FThumb_Book.PNG?alt=media" alt="Book..."/>
                 <div className="cartItem-itemQty">
                     <button className="fas fa-minus fa-lg" onClick={decreaseQty}/>
                     <div className="cartItem-qtyText">{qty}</div>

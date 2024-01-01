@@ -1,53 +1,58 @@
+import { Link } from "react-router-dom";
+import { AuthData } from "../../AuthContext/AuthWrapper";
+
 function SignUp(){
+    const { handleSignUp } = AuthData();
+
     return (
-        <div class="flex-center auth-container">
-            <div class="auth-form">
+        <div className="flex-center auth-container">
+            <div className="auth-form">
                 <img src="/images/user.png" alt="User Png" height="150px" width="150px" />
                 <h2>Sign Up</h2>
-                <form id="sign-up" class="flex-center" action="/users/create-user" method="POST">
+                <form id="sign-up" className="flex-center" method="POST" onSubmit={handleSignUp}>
 
                     {/* Name Field */}
-                    <div class="form-group">
-                        <input type="text" class="form-control" id="inputEmail" placeholder="Name" name="name" required />
+                    <div className="form-group">
+                        <input type="text" className="form-control" id="inputName" placeholder="Name" name="name" required />
                     </div>
 
                      {/* Email Field  */}
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email" required />
+                    <div className="form-group">
+                        <input type="email" className="form-control" id="inputEmail" placeholder="Email" name="email" required />
                     </div>
 
                      {/* Password Field  */}
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password" required />
+                    <div className="form-group">
+                        <input type="password" className="form-control" id="inputPassword" placeholder="Password" name="password" required />
                     </div>
 
                      {/* Confirm Password  */}
-                    <div class="form-group">
-                        <input type="password" class="form-control" id="inputPassword" placeholder="Confirm Password" name="confirmPassword" required />
+                    <div className="form-group">
+                        <input type="password" className="form-control" id="inputCnfPassword" placeholder="Confirm Password" name="confirmPassword" required />
                     </div>
 
                      {/* Sign Up Button  */}
-                    <div class="flex-center form-group">
-                        <button type="submit" class="flex-center btn btn-primary">
-                            <i class="fas fa-user-plus"></i>
+                    <div className="flex-center form-group">
+                        <button type="submit" className="flex-center btn btn-primary">
+                            <i className="fas fa-user-plus"></i>
                             &nbsp;
                             Sign Up
                         </button>
                     </div>  
                     
                      {/* Google Sign In/Sign Up  */}
-                    <div class="flex-center form-group">
-                        <a href="/users/auth/google" class="flex-center btn btn-primary">
+                    <div className="flex-center form-group">
+                        <Link to="/users/auth/google" className="flex-center btn btn-primary">
                             <img src="/images/google.png" alt="Google" height="25px" width="25px" />
                             &nbsp;
                             Continue with Google
-                        </a>
+                        </Link>
                     </div>
                 </form>
 
                  {/* Sign In Link  */}
                 <p>
-                    Already have an account? <a href="/user/signIn">Sign In</a>
+                    Already have an account? <Link to="/user/signIn">Sign In</Link>
                 </p>
             </div>
         </div>
