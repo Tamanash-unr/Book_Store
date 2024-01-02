@@ -4,7 +4,19 @@ import User from '../models/user.js';
 import CryptoJS from 'crypto-js';
 import jwt from 'jsonwebtoken';
 
-const router = express.Router();
+const router = express.Router(); 
+
+// Function for validating a given token, return true or false based on result 
+function validateToken(token){
+    const jwt_secretKey = process.env.JWT_SECRET_KEY;
+    const verified = jwt.verify(token, jwt_secretKey);
+
+    if(verified){
+        return true;
+    } else {
+        return false;
+    }
+}
 
 // Test API Router
 router.get('/test', (req, res) => {
@@ -15,27 +27,46 @@ router.get('/test', (req, res) => {
 
 // creating the entry of book in db
 router.post('/create', async (req, res) => {
+    const tokenHeaderKey = process.env.TOKEN_HEADER_KEY; 
+
     try {
         if(!req.body.title || !req.body.author || !req.body.year){
             return res.status(400).send({
                 message: "Send all the required fields"
             });
         }
-        const newBook = {
-            title: req.body.title,
-            author: req.body.author,
-            year: req.body.year,
-            image: req.body.image,
-            price: req.body.price,
-            genre: req.body.genre,
-            language: req.body.language,
-            addedBy: req.body.user 
-        }
-        
-        const book = await Book.create(newBook);
-        return res.status(201).send(book);
+
+        const auth_token = req.header(tokenHeaderKey); 
+        const isValid = validateToken(auth_token);
+
+        if(isValid){
+            const data = jwt.decode(auth_token);
+
+            const newBook = {
+                title: req.body.title,
+                author: req.body.author,
+                year: req.body.year,
+                image: req.body.image,
+                price: req.body.price,
+                genre: req.body.genre,
+                language: req.body.language,
+                description: req.body.desc,
+                addedBy: data.userId
+            }
+
+            const book = await Book.create(newBook);
+            return res.status(201).send({
+                message: "Add Book Success!",
+                book
+            });
+        } else {
+            return res.status(401).send({
+                message: 'Invalid/Expired Token'
+            });
+        }        
     } catch (error) {
-        return res.status(500).send({message: error.message})
+        console.log(error);
+        return res.status(500).send({message: error.message});        
     }
 })
 
@@ -119,11 +150,12 @@ router.post("/sign-in", async (req, res)=>{
 
         let data = {
             time: Date(),
-            userId: user._id
+            userId: user._id,
+            username: user.name
         }
 
-        const token = jwt.sign(data, jwt_secretKey, {expiresIn: "5min"});
-token
+        const token = jwt.sign(data, jwt_secretKey, {expiresIn: "12h"});
+
         return res.status(200).send({
             message: "Sign In Success!",
             token: token,
@@ -177,17 +209,21 @@ router.post("/sign-up", async (req, res)=>{
 })
 
 // Validate an Existing token on client
-router.get("/validateToken", (req, res)=>{
-    const jwt_secretKey = process.env.JWT_SECRET_KEY;
+router.get("/validateToken", (req, res)=>{ 
     const tokenHeaderKey = process.env.TOKEN_HEADER_KEY; 
-    
+
     try {
         const token = req.header(tokenHeaderKey); 
-        const verified = jwt.verify(token, jwt_secretKey);
-        
-        if(verified){ 
+        const isValid = validateToken(token);    
+
+        if(isValid){ 
+            const data = jwt.decode(token);
+
             return res.status(200).send({
-                message: "Token Verified"
+                message: "Token Verified",
+                user: {
+                    name: data.username,
+                }
             }); 
         } 
     } catch (error) {

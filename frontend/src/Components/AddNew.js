@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { AuthData } from "../AuthContext/AuthWrapper";
 import "./AddNew.css";
 
 function AddNew(){
     const defaultImg = "https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/Public%2FThumb_Book.PNG?alt=media";
 
     const [imgSrc, setImgSrc] = useState(defaultImg);
+    const { cookies, toast, toastId } = AuthData();
     let genre = [];
     let language = [];
 
@@ -32,6 +34,9 @@ function AddNew(){
 
     async function handleAddBook(evt){
         evt.preventDefault();
+
+        const token = cookies.user_token;
+        toastId.current = toast("Adding New Book", {autoClose: false, isLoading: true});
         
         const newBook = {
             title: document.getElementById("title").value,
@@ -41,29 +46,34 @@ function AddNew(){
             year: document.getElementById("year").value,
             desc: document.getElementById("description").value,
             genre,
-            language,
-            user: "Test User"
+            language
         }
 
-        console.log(newBook);
+        try {
+            const data = await fetch("http://localhost:8080/booksApi/create", {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'jwt_auth_token': token
+                  },
+                body: JSON.stringify(newBook)
+            });
 
-        // try {
-        //     const data = await fetch("localhost:8080/booksApi/create", {
-        //         method: 'POST',
-        //         headers: {
-        //             'Accept': 'application/json',
-        //             'Content-Type': 'application/json'
-        //           },
-        //         body: newBook
-        //     });
+            const response = await data.json();
 
-        //     const response = await data.json();
-
-        //     alert(response);
-            
-        // } catch (error) {
-        //     alert("Failed to add Book : ",error)
-        // }
+            // Update Toast using ref Id based on Status of API result
+            setTimeout(()=>{
+                if(data.status === 201){
+                    toast.update(toastId.current, {type: toast.TYPE.SUCCESS, autoClose: 2000, render: response.message, isLoading: false} );
+                } else {
+                    toast.update(toastId.current, {type: toast.TYPE.ERROR, autoClose: 2000, render: response.message, isLoading: false} )
+                }
+            }, 500);
+        } catch (error) {
+            toast.error("Failed to Add Book!")
+            console.log("Failed to add Book : ",error)
+        }
     }
 
     return (

@@ -11,5 +11,6 @@ import Dashboard from "./UserDashboard";
 import UserProfile from "./UserProfile";
 import Orders from "./Orders/MyOrders";
 import AddNew from "./AddNew";
+import Loading from "./Loading";
 
-export {Navbar, Home, Dashboard, SignIn, SignUp, Footer, NotFound, Books, About, Cart, UserProfile, Orders, AddNew};
+export {Navbar, Home, Dashboard, SignIn, SignUp, Footer, NotFound, Books, About, Cart, UserProfile, Orders, AddNew, Loading};

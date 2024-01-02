@@ -2,10 +2,11 @@ import React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useNavigate } from "react-router-dom";
-import { Navbar } from "../Components";
+import { Navbar, Loading } from "../Components";
 import NavPages from "../NavStructure/Navigation";
 
 const AuthContext = createContext();
@@ -15,8 +16,9 @@ function AuthWrapper(){
     // React State Hooks
     const [cartItems, setCartItems] = useState([]); /* State hook for Cart */
     const [user, setUser] = useState({name:'',isLoggedIn:false});
-    const navigate = useNavigate();
+    const [isLoading, setLoading] = useState(true);
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const navigate = useNavigate();
 
     // Use to store ref Id for current toast
     const toastId = React.useRef(null);    
@@ -119,18 +121,26 @@ function AuthWrapper(){
 
     /*---- Handle User Sign Out ----*/
     async function validateToken(){
+        setLoading(true);
+
         const token = cookies.user_token;
 
         const req = await fetch("http://localhost:8080/booksApi/validateToken",{
             method:'GET',
             headers: {
-                "jwt_header_token": token
+                "jwt_auth_token": token
              }
         });
 
+        // Convert API result to JSON 
+        const response = await req.json();
+
         if(req.status === 200){
-            return true
+            setUser({...response.user, isLoggedIn: true});
+            setLoading(false);
+            return true;
         } else {
+            setLoading(false);
             return false
         }
     }
@@ -140,10 +150,26 @@ function AuthWrapper(){
     }
 
     return (
-        <AuthContext.Provider value={{handleSignIn, handleSignOut, handleSignUp, cartItems, user}}>
-            <Navbar/>
-            <NavPages />
-        </AuthContext.Provider>
+        <> 
+            {isLoading && <Loading />}
+            {!isLoading && 
+            <AuthContext.Provider value={{navigate, handleSignIn, handleSignOut, handleSignUp, cartItems, user, cookies, toast, toastId}}>
+                <Navbar/>
+                <NavPages />
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    draggable
+                    pauseOnHover={false}
+                    progressClassName="toast-ProgressBar"
+                />
+            </AuthContext.Provider>
+            }
+        </>
     );
 }
 
