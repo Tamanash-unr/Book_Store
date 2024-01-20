@@ -9,10 +9,32 @@
 }
 
 .books-container{
+    width: 70%;
+}
+
+.result-container{
     display: flex;
     flex-wrap: wrap;
 }
 
-.books-container .book-card{
+.result-container .book-card{
     margin: 10px;
+}
+
+.resultNav{
+    display: flex;
+    justify-content: center;
+    margin: 25px 0px;
+}
+
+.resultNav .btn{
+    margin: 0px 10px;
+    max-width: 200px;
+}
+
+.resultNav .btn:disabled{
+    cursor: not-allowed;
+    opacity: 0.4;
+    background-color: #ffe3a6 !important;
+    color: #7b2e00 !important;
 }

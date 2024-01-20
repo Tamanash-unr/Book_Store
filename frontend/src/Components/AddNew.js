@@ -32,6 +32,12 @@ function AddNew(){
         }
     }
 
+    function clearForm(){
+        genre = [];
+        language = [];
+        document.getElementById('addNew-form').reset();
+    }
+
     async function handleAddBook(evt){
         evt.preventDefault();
 
@@ -66,6 +72,7 @@ function AddNew(){
             setTimeout(()=>{
                 if(data.status === 201){
                     toast.update(toastId.current, {type: toast.TYPE.SUCCESS, autoClose: 2000, render: response.message, isLoading: false} );
+                    clearForm();
                 } else {
                     toast.update(toastId.current, {type: toast.TYPE.ERROR, autoClose: 2000, render: response.message, isLoading: false} )
                 }
@@ -81,7 +88,7 @@ function AddNew(){
             <div className="card-header">
                 <h2>Add New Book</h2>
             </div>
-            <form method="POST" onSubmit={handleAddBook}>
+            <form id="addNew-form" method="POST" onSubmit={handleAddBook}>
                 <div className="addNew-formData">
                     <div className="formInputs">
                         <input type="text" id="title" placeholder="Book Title" required/>
@@ -97,24 +104,24 @@ function AddNew(){
                 </div>
                 <div className="addNew-Select">
                     <label for="genres">Genres</label><br/>
-                    <input type="checkbox" id="genre" name="Fiction" value="Fiction" onChange={updateBookGenre}/>
+                    <input type="checkbox" className="genre" name="Fiction" value="Fiction" onChange={updateBookGenre}/>
                     <label for="Fiction">Fiction</label>
-                    <input type="checkbox" id="genre" name="Sci-Fi" value="Sci-Fi" onChange={updateBookGenre}/>
+                    <input type="checkbox" className="genre" name="Sci-Fi" value="Sci-Fi" onChange={updateBookGenre}/>
                     <label for="Sci-Fi">Sci-Fi</label>
-                    <input type="checkbox" id="genre" name="Health" value="Health" onChange={updateBookGenre}/>
+                    <input type="checkbox" className="genre" name="Health" value="Health" onChange={updateBookGenre}/>
                     <label for="Health">Health</label>
-                    <input type="checkbox" id="genre" name="Academic" value="Academic" onChange={updateBookGenre}/>
+                    <input type="checkbox" className="genre" name="Academic" value="Academic" onChange={updateBookGenre}/>
                     <label for="Academic">Academic</label>
-                    <input type="checkbox" id="genre" name="Cooking" value="Cooking" onChange={updateBookGenre}/>
+                    <input type="checkbox" className="genre" name="Cooking" value="Cooking" onChange={updateBookGenre}/>
                     <label for="Cooking">Cooking</label>
                 </div>
                 <div className="addNew-Select">
                     <label for="language">Language</label><br/>
-                    <input type="checkbox" id="language" name="English" value="English" onChange={updateBookLanguage}/>
+                    <input type="checkbox" className="language" name="English" value="English" onChange={updateBookLanguage}/>
                     <label for="English">English</label>
-                    <input type="checkbox" id="language" name="Hindi" value="Hindi" onChange={updateBookLanguage}/>
+                    <input type="checkbox" className="language" name="Hindi" value="Hindi" onChange={updateBookLanguage}/>
                     <label for="Hindi">Hindi</label>
-                    <input type="checkbox" id="language" name="Other" value="Other" onChange={updateBookLanguage}/>
+                    <input type="checkbox" className="language" name="Other" value="Other" onChange={updateBookLanguage}/>
                     <label for="Other">Other</label>
                 </div>
                 <div className="addNew-Desc">

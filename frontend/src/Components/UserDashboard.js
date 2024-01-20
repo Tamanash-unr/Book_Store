@@ -1,15 +1,39 @@
 import "./UserDashboard.css";
+import { useState, useEffect } from "react";
 import { Slide } from 'react-slideshow-image';
 import BookCard from "./Cards/SimpleBookCard";
 import { AuthData } from "../AuthContext/AuthWrapper";
 
 function Dashboard(){
-    const { user } = AuthData();
+    const { user, getBooks } = AuthData();
+    const [books, setBooks] = useState([]);
+
+    useEffect(()=>{
+        getBooksFromServer();
+    }, [])
 
     const arrows = {
         prevArrow: <button className="fas fa-caret-left slide-arrow"/>,
         nextArrow: <button className="fas fa-caret-right slide-arrow"/>
     };
+
+    async function getBooksFromServer(){
+        const newBooks = await getBooks(1, 5);
+
+        setBooks(newBooks.data);
+    }
+
+    function getCards(){
+        if(books.length > 0){
+            let cards = [];
+
+            books.map((book) => {
+                cards.push(<BookCard key={book._id} isSimple={true} book={book}/>);
+            })
+
+            return <Slide slidesToShow={5} autoplay={false} {...arrows}>{cards}</Slide>;
+        }
+    }
 
     return (
         <div className="dashboard-container">
@@ -22,14 +46,8 @@ function Dashboard(){
                         Recently Added
                     </h2>
                 </div>
-                <Slide slidesToShow={5} autoplay={false} {...arrows}>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                </Slide>
+                {/* <Slide slidesToShow={5} autoplay={false} children={getCards()} {...arrows} /> */}
+                {getCards()}
             </div>
             <div className="dashboard-card">
                 <div className="card-header">
@@ -40,7 +58,6 @@ function Dashboard(){
                     </h2>
                 </div>
                 <Slide slidesToShow={5} autoplay={false} {...arrows}>
-                    <BookCard isSimple={true}/>
                     <BookCard isSimple={true}/>
                     <BookCard isSimple={true}/>
                     <BookCard isSimple={true}/>

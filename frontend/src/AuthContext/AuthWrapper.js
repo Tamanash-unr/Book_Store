@@ -149,11 +149,24 @@ function AuthWrapper(){
         //add item to cart
     }
 
+    async function getBooks(pageNo, paginationLimit = 10 ){
+        const url = "http://localhost:8080/booksApi/books/" + pageNo + "/" + paginationLimit;
+
+        // FetchAPI call for getting Books
+        const data = await fetch(url,{
+            method:"GET"
+        })
+
+        const response = await data.json();
+        
+        return response;
+    }
+
     return (
         <> 
             {isLoading && <Loading />}
             {!isLoading && 
-            <AuthContext.Provider value={{navigate, handleSignIn, handleSignOut, handleSignUp, cartItems, user, cookies, toast, toastId}}>
+            <AuthContext.Provider value={{handleSignIn, handleSignOut, handleSignUp, getBooks, cartItems, user, cookies, toast, toastId}}>
                 <Navbar/>
                 <NavPages />
                 <ToastContainer

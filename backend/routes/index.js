@@ -71,11 +71,18 @@ router.post('/create', async (req, res) => {
 })
 
 // get all books from db
-router.get("/books",async (req,res)=>{
+router.get("/books/:page/:pagination",async (req,res)=>{
     try{
-        const books = await Book.find({});
+        // Number of books to return after search
+        const pagination = req.params.pagination ? parseInt(req.params.pagination) : 10;
+        //PageNumber From which Page to Start 
+        const pageNumber = req.params.page ? parseInt(req.params.page) : 1;
+
+        const totalBooks = await Book.count();
+        const books = await Book.find({}).skip((pageNumber - 1) * pagination).limit(pagination);
+
         return res.status(200).json({
-            count: books.length,
+            count: totalBooks,
             data: books
         })
     } catch (error) {

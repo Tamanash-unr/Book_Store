@@ -35,6 +35,10 @@ const bookSchema = mongoose.Schema(
             of: String,
             default: "Other"
         },
+        bestseller: {
+            type: Boolean,
+            default: false
+        },
         addedBy:{
             type:  mongoose.Schema.Types.ObjectId,
             required: true,
