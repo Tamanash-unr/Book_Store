@@ -14,10 +14,10 @@ export const AuthData = () => useContext(AuthContext);
 
 function AuthWrapper(){
     // React State Hooks
-    const [cartItems, setCartItems] = useState([]); /* State hook for Cart */
+    const [cartItems, setCartItems] = useState({items: [], itemData: {}}); /* State hook for Cart */
     const [user, setUser] = useState({name:'',isLoggedIn:false});
     const [isLoading, setLoading] = useState(true);
-    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const [cookies, setCookie, removeCookie] = useCookies(["user_token"]);
     const navigate = useNavigate();
 
     // Use to store ref Id for current toast
@@ -43,7 +43,7 @@ function AuthWrapper(){
         toastId.current = toast("Signing In", {autoClose: false, isLoading: true}); 
         
         // FetchAPI call for Signing In
-        const data = await fetch("http://localhost:8080/booksApi/sign-in",{
+        const data = await fetch("http://localhost:8080/userApi/sign-in",{
             method:"POST",
             headers: {
                 'Accept': 'application/json',
@@ -63,6 +63,7 @@ function AuthWrapper(){
                 setCookie("user_token", response.token, {path: '/'});
                 setUser({...response.user, isLoggedIn: true});
                 navigate("/");
+                console.log(cookies)
             } else {
                 toast.update(toastId.current, {type: toast.TYPE.ERROR, autoClose: 2000, render: response.message, isLoading: false} )
             }
@@ -85,7 +86,7 @@ function AuthWrapper(){
         toastId.current = toast("Creating New User", {autoClose: false, isLoading: true}); 
         
         // FetchAPI call for Sign Up
-        const data = await fetch("http://localhost:8080/booksApi/sign-up",{
+        const data = await fetch("http://localhost:8080/userApi/sign-up",{
             method:"POST",
             headers: {
                 'Accept': 'application/json',
@@ -119,13 +120,13 @@ function AuthWrapper(){
         }
     }
 
-    /*---- Handle User Sign Out ----*/
+    /*---- Validate current user Token ----*/
     async function validateToken(){
         setLoading(true);
 
         const token = cookies.user_token;
 
-        const req = await fetch("http://localhost:8080/booksApi/validateToken",{
+        const req = await fetch("http://localhost:8080/userApi/validateToken",{
             method:'GET',
             headers: {
                 "jwt_auth_token": token
@@ -145,8 +146,56 @@ function AuthWrapper(){
         }
     }
 
-    function handleAddToCart(){
-        //add item to cart
+    async function handleAddToCart(item){
+        const newCart = {...cartItems};
+        const token = cookies.user_token;
+
+        if (!newCart.items.includes(item)){
+            newCart.items.push(item);
+            newCart.itemData[item] = 1;
+
+            const data = await fetch("http://localhost:8080/userApi/updateCart",{
+                method:'POST',
+                headers: {
+                    "Content-Type":  "application/json",
+                    "jwt_auth_token": token
+                },
+                body: JSON.stringify(newCart)
+            });
+
+            setCartItems(newCart);
+
+            return data.status;
+        }
+    }
+
+    async function fetchUserCart(populateCart = false){
+        const token = cookies.user_token;
+
+        const data = await fetch("http://localhost:8080/userApi/getUserCart",{
+            method:"GET",
+            headers: {
+                "jwt_auth_token": token,
+                "populate": populateCart
+            }
+        })
+
+        if (data.status === 200){
+            const response = await data.json();
+
+            const userCart = {
+                items: response.cart.cartItems,
+                itemData: response.cart.cartItemsData
+            }
+
+            if(!populateCart){
+                setCartItems(userCart);
+            } else {
+                return userCart;
+            }
+        } else {
+            return {};
+        }
     }
 
     async function getBooks(pageNo, paginationLimit = 10 ){
@@ -166,7 +215,7 @@ function AuthWrapper(){
         <> 
             {isLoading && <Loading />}
             {!isLoading && 
-            <AuthContext.Provider value={{handleSignIn, handleSignOut, handleSignUp, getBooks, cartItems, user, cookies, toast, toastId}}>
+            <AuthContext.Provider value={{handleSignIn, handleSignOut, handleSignUp, handleAddToCart, getBooks, fetchUserCart, cartItems, user, cookies, toast, toastId}}>
                 <Navbar/>
                 <NavPages />
                 <ToastContainer

@@ -1,13 +1,20 @@
 import "./SimpleBookCard.css";
+import { useNavigate } from "react-router-dom";
 
-function bookCard(props){
+function BookCard(props){
     const {isSimple, book} = props;
+    const navigate = useNavigate();
 
     let defImage = "https://firebasestorage.googleapis.com/v0/b/cn-cart-884a6.appspot.com/o/Public%2FThumb_Book.PNG?alt=media";
     let bestseller = !book ? false : book.bestseller;
 
+    const Goto = () => {
+        const url = `/book/${book._id}`;
+        navigate(url);
+    }
+
     return (
-        <div className="book-card">
+        <div className="book-card" onClick={Goto}>
             {bestseller && 
                 <div className="book-tag">
                     <img src="/images/best-seller.png" alt="Bestseller..."/>
@@ -34,4 +41,4 @@ function bookCard(props){
     );
 }
 
-export default bookCard;
+export default BookCard;

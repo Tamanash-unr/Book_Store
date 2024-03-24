@@ -5,7 +5,8 @@ dotenv.config({path: "./config.env"});
 import express from 'express';
 import cors from 'cors';
 import db from './config/mongoose.js';
-import bookRouter from './routes/index.js';
+import bookRouter from './routes/books.js';
+import userRouter from './routes/user.js';
 
 const app = express();
 // const port = 8080;
@@ -26,6 +27,7 @@ app.use(cors());
 
 
 app.use('/booksApi', bookRouter);
+app.use('/userApi', userRouter);
 
 app.listen(process.env.APP_PORT, function(err){
     if(err){

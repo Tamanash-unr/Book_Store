@@ -4,7 +4,8 @@ import {
     SignIn, 
     SignUp, 
     NotFound, 
-    Books, 
+    Books,
+    BookDetails, 
     About, 
     Cart, 
     UserProfile, 
@@ -20,6 +21,7 @@ function NavPages(){
 
     const pages = [
         {path: "/books", element: <Books/>, isPrivate: false},
+        {path: "/book/:id", element: <BookDetails/>, isPrivate: false},
         {path: "/about", element: <About/>, isPrivate: false},
         {path: "/user/signIn", element: <SignIn />, isPrivate: false},
         {path: "/user/signUp", element: <SignUp />, isPrivate: false},

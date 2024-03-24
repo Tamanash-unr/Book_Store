@@ -13,7 +13,7 @@ function Books(){
 
     useEffect(()=>{
         getBooksFromServer();
-    },[]);
+    },[currentPage]);
 
     async function getBooksFromServer(setCount = true){
         const newBooks = await getBooks(currentPage, maxBooksToDisplay);
@@ -28,8 +28,7 @@ function Books(){
         let changeToPage = currentPage + page;
 
         if(changeToPage > 0 && changeToPage <= maxPageCount){
-            setCurrentpage(changeToPage);
-            getBooksFromServer(false);
+            setCurrentpage(changeToPage);  
         }
     }
 

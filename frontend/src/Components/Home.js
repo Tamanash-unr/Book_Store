@@ -1,9 +1,46 @@
 import "./Home.css";
+import { useState, useEffect } from "react";
 import BookCard from "./Cards/SimpleBookCard";
+import { AuthData } from "../AuthContext/AuthWrapper";
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 
 function Home() {
+    const { getBooks } = AuthData();
+    const [books, setBooks] = useState([]);
+
+    useEffect(()=>{
+        getBooksFromServer();
+    },[])
+
+    async function getBooksFromServer(){
+        const newBooks = await getBooks(1, 5);
+
+        setBooks(newBooks.data)
+    }
+
+    function getBookCards(){
+        if(books.length > 0){
+            let cards = [];
+
+            books.map((book) => {
+                cards.push(<BookCard key={book._id} isSimple={true} book={book}/>);
+            })
+
+            return <Slide slidesToScroll={1} slidesToShow={3} duration={2000} arrows={false}>{cards}</Slide>;
+        } else {
+            return (
+                <Slide slidesToScroll={1} slidesToShow={3} duration={2000} arrows={false}>
+                    <BookCard isSimple={true}/>
+                    <BookCard isSimple={true}/>
+                    <BookCard isSimple={true}/>
+                    <BookCard isSimple={true}/>
+                    <BookCard isSimple={true}/>
+                    <BookCard isSimple={true}/>
+                </Slide>
+            )
+        }
+    }
 
     const doOnChange = () => {
         let slideArr = document.getElementsByClassName("active");
@@ -26,14 +63,7 @@ function Home() {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
             <div className="home-slide">
-                <Slide slidesToScroll={1} slidesToShow={3} duration={2000} arrows={false} onStartChange={doOnChange}>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                    <BookCard isSimple={true}/>
-                </Slide>
+                {getBookCards()}
             </div>
         </div>
     );

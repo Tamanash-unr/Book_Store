@@ -1,8 +1,5 @@
 import express from 'express';
 import Book from '../models/books.js';
-import User from '../models/user.js';
-import CryptoJS from 'crypto-js';
-import jwt from 'jsonwebtoken';
 
 const router = express.Router(); 
 
@@ -55,6 +52,7 @@ router.post('/create', async (req, res) => {
             }
 
             const book = await Book.create(newBook);
+            
             return res.status(201).send({
                 message: "Add Book Success!",
                 book
@@ -136,106 +134,5 @@ router.delete("/delete/:id", async (req, res)=>{
         return res.status(500).send({message: error.message})
     }
 })
-
-// Sign in user and return JWT Token
-router.post("/sign-in", async (req, res)=>{
-    try {
-        if(!req.body.email || !req.body.password){
-            return res.status(400).send({
-                message: "Send all the required fields"
-            });
-        }
-
-        const jwt_secretKey = process.env.JWT_SECRET_KEY;
-        const user = await User.findOne({email: req.body.email});
-
-        if(!user || user.password != CryptoJS.MD5(req.body.password).toString()){
-            return res.status(400).send({
-                message: "Invalid Username/Password"
-            });
-        }
-
-        let data = {
-            time: Date(),
-            userId: user._id,
-            username: user.name
-        }
-
-        const token = jwt.sign(data, jwt_secretKey, {expiresIn: "12h"});
-
-        return res.status(200).send({
-            message: "Sign In Success!",
-            token: token,
-            user: {
-                name: user.name,
-            }
-        });
-    } catch (error) {
-        return res.status(400).send({
-            message: "Sign In Error :" + error,
-        });
-    }
-});
-
-// Create a new user in DB
-router.post("/sign-up", async (req, res)=>{
-    try {
-        if(req.body.password != req.body.confirmPassword){
-            return res.status(400).send({
-                message: "Passwords do not Match!"
-            });
-        }
-
-        const user = await User.findOne({email: req.body.email});
-        if(!user){
-            const newUser = await User.create({
-                name: req.body.name,
-                email: req.body.email,
-                password: CryptoJS.MD5(req.body.password).toString()
-            });
-
-            if(newUser){
-                return res.status(200).send({
-                    message: "User Created! You can now Sign In"
-                });
-            } else {
-                return res.status(400).send({
-                    message: "Failed to create User!"
-                });
-            }
-        } else {
-            return res.status(400).send({
-                message: "User Already Exists!"
-            });
-        }
-    } catch (error) {
-        return res.status(400).send({
-            message: "Sign Up Error :" + error,
-        });
-    }
-})
-
-// Validate an Existing token on client
-router.get("/validateToken", (req, res)=>{ 
-    const tokenHeaderKey = process.env.TOKEN_HEADER_KEY; 
-
-    try {
-        const token = req.header(tokenHeaderKey); 
-        const isValid = validateToken(token);    
-
-        if(isValid){ 
-            const data = jwt.decode(token);
-
-            return res.status(200).send({
-                message: "Token Verified",
-                user: {
-                    name: data.username,
-                }
-            }); 
-        } 
-    } catch (error) {
-        return res.status(401).send(error)
-    }
-});
 
 export default router;

@@ -1,27 +1,20 @@
 import { Link } from "react-router-dom";
 import { AuthData } from "../../AuthContext/AuthWrapper";
+import { useEffect } from "react";
 import "./CartButton.css";
 
 function CartButton(props){
     const { btnLink, btnClassName, fa_Icon } = props;
-    const { cartItems } = AuthData();
+    const { cartItems, fetchUserCart} = AuthData();
 
-    async function handleClick(evt){
-        evt.preventDefault();
-
-        try {
-            const response = await fetch("http://localhost:8080/books-api/test");
-            const data = await response.json();
-            alert(data.message);
-        } catch (error) {
-            alert("Error: ", error);
-        }
-    }
+    useEffect(()=>{
+        fetchUserCart();
+    },[])
 
     return (
         <Link to={btnLink} className={"btn-cart " + btnClassName}>
             {fa_Icon !== undefined && <i className={fa_Icon} />}
-            {cartItems.length > 0 && <span className="cart-items">{cartItems.length}</span>}
+            {cartItems.items.length > 0 && <span className="cart-items">{cartItems.items.length}</span>}
         </Link>
     );
 }
